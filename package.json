@@ -1,0 +1,27 @@
+{
+  "name": "vuex-localState",
+  "version": "1.0.0",
+  "description": "vuex plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/biluochun/vuex-localState.git"
+  },
+  "keywords": [
+    "vuex-localState",
+    "vuex",
+    "localStorage"
+  ],
+  "author": "imconfig",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/biluochun/vuex-localState/issues"
+  },
+  "homepage": "https://github.com/biluochun/vuex-localState#readme",
+  "devDependencies": {
+    "fis3-parser-typescript": "^1.1.4"
+  }
+}
