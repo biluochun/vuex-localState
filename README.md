@@ -1,27 +1,24 @@
 # vuex-local-state
 inject localStorage to vuex
 
-## 安装方法
-`npm install vuex-local-state --save`
-
-## 注意事项
-------
-* state 储存到 localStorage 目前没有做按需存储。
+## Installation
+```bash
+$ npm install vuex-local-state --save
+```
 
 ## API
-
-    new VuexLocalState(storeOptions, conf);
-    conf 默认 {
+    new VuexLocalState(storeOptions, [conf]);
+    conf default: {
         namespace: '_vued',
         storage: window.localStorage,
         key: 'localState',
     }
 
 
-## [demo](https://biluochun.github.io/vuex-localState/test/index.html)
+## [Examples](https://biluochun.github.io/vuex-localState/test/index.html)
 
-## 使用方法
-```javascript
+## Usage
+```js
 
 import * as Vue from 'vue';
 import * as Vuex from 'vuex';
@@ -51,8 +48,7 @@ Vue.use(Vuex);
 export new Vuex.Store(store);
 ```
 
-
-```javascript
+```js
 // subModule.js
 // vuex module 示例
 export default {
@@ -81,5 +77,7 @@ export default {
     mutations: {},
 };
 
-
 ```
+
+## Other
+* state 储存到 localStorage 目前没有做按需存储。

@@ -5,7 +5,9 @@
     <title>vuex-local-state</title>
 </head>
 <body>
-    刷新界面，查看值的变化。F12查看代码。
+    F5 see diff.<br>
+    F12 view code.<br>
+    My English is so good.<br>
     <div id="app"></div>
 
     <script src="https://cdn.bootcss.com/require.js/2.3.4/require.min.js"></script>
@@ -51,21 +53,10 @@
                 store: store,
                 el: '#app',
                 template: '<div>\
-                    <p>stateCount: {{ stateCount }} (vuex state 值为函数时，无特殊作用)</p>\
-                    <p>localStateCount: {{ localStateCount }} (该值存储在 localStorage 内)</p>\
-                    <p>sessionStateCount: {{ sessionStateCount }} (该值存储在 sessionStorage 内)</p>\
+                    <p>stateCount: {{ $store.state.count }} (vuex state)</p>\
+                    <p>localStateCount: {{ $store.state.localCount }} (localStorage)</p>\
+                    <p>sessionStateCount: {{ $store.state.sessionCount }} (sessionStorage)</p>\
                 </div>',
-                computed: {
-                    stateCount: function () {
-                        return this.$store.state.count;
-                    },
-                    localStateCount: function () {
-                        return this.$store.state.localCount;
-                    },
-                    sessionStateCount: function () {
-                        return this.$store.state.sessionCount;
-                    },
-                },
             });
         });
     </script>
