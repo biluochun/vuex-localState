@@ -13,7 +13,7 @@ inject localStorage to vuex
 
 import * as Vue from 'vue';
 import * as Vuex from 'vuex';
-import vuexLocalState from 'vuex-local-state';
+import * as vuexLocalState from 'vuex-local-state';
 import subModule from './subModule.js';
 
 const store = {
