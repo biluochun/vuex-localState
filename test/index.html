@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>vuex-local-state</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script src="https://cdn.bootcss.com/require.js/2.3.4/require.min.js"></script>
+    <script>
+        require([
+            "https://cdn.bootcss.com/vue/2.4.2/vue.min.js",
+            "https://cdn.bootcss.com/vuex/2.3.1/vuex.min.js",
+            "../index.js",
+        ], function (Vue, Vuex, VuexLocalState) {
+            var storeOptions = {
+                state: {
+                    count: function (val) {
+                        return (val || 0) + 1;
+                    },
+                },
+                myLocalStateKey: {
+                    localCount: function (val) {
+                        return (val || 0) + 1;
+                    },
+                },
+                mySessionStateKey: {
+                    sessionCount: function (val) {
+                        return (val || 0) + 1;
+                    },
+                },
+            };
+
+            new VuexLocalState(storeOptions, {
+                namespace: '__my_namespace',
+                storage: window.localStorage,
+                key: 'myLocalStateKey',
+            });
+
+            new VuexLocalState(storeOptions, {
+                namespace: '__my_namespace',
+                storage: window.sessionStorage,
+                key: 'mySessionStateKey',
+            });
+            Vue.use(Vuex);
+            const store = new Vuex.Store(storeOptions);
+
+            new Vue({
+                store: store,
+                el: '#app',
+                template: '<div>\
+                    <p>stateCount: {{ stateCount }} (vuex state 值为函数时，无特殊作用)</p>\
+                    <p>localStateCount: {{ localStateCount }} (该值存储在 localStorage 内)</p>\
+                    <p>sessionStateCount: {{ sessionStateCount }} (该值存储在 sessionStorage 内)</p>\
+                </div>',
+                computed: {
+                    stateCount: function () {
+                        return this.$store.state.count;
+                    },
+                    localStateCount: function () {
+                        return this.$store.state.localCount;
+                    },
+                    sessionStateCount: function () {
+                        return this.$store.state.sessionCount;
+                    },
+                },
+            });
+        });
+    </script>
+</body>
+</html>

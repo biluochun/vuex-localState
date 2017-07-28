@@ -8,6 +8,9 @@ inject localStorage to vuex
 ------
 * state 储存到 localStorage 目前没有做按需的。
 
+## [demo](https://biluochun.github.io/vuex-localState/test/index.html)
+
+
 ## 使用方法
 ```javascript
 
