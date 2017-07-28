@@ -1,4 +1,4 @@
-# vuex-localState
+# vuex-local-state
 inject localStorage to vuex
 
 ## 安装方法
@@ -20,7 +20,7 @@ const store = {
     // https://vuex.vuejs.org/zh-cn/state.html
     state: {},
 
-    // vuex-localState 注入 vuex 后新增功能。与 https://vuex.vuejs.org/zh-cn/state.html 相比，只是新增部分功能：
+    // vuex-local-state 注入 vuex 后新增功能。与 https://vuex.vuejs.org/zh-cn/state.html 相比，只是新增部分功能：
     // 1、存储于 localStorage 内，刷新后不会丢失
     // 2、初始值为函数时: 函数参数为本地数据，返回值将被存储。比如每次刷新计数器: function (count) { return (count || 0) + 1; }
     // 3、注意事项！！使用方法上与state【相同】： store.state.xxx (注意是state,不是store.localState)
@@ -47,7 +47,7 @@ export default {
     // https://vuex.vuejs.org/zh-cn/state.html
     state: {},
 
-    // vuex-localState 注入 vuex 后新增功能。与 https://vuex.vuejs.org/zh-cn/state.html 相比，只是新增部分功能：
+    // vuex-local-state 注入 vuex 后新增功能。与 https://vuex.vuejs.org/zh-cn/state.html 相比，只是新增部分功能：
     // 1、存储于 localStorage 内，刷新后不会丢失
     // 2、初始值为函数时: 函数参数为本地数据，返回值将被存储。比如每次刷新计数器: function (count) { return (count || 0) + 1; }
     // 3、注意事项！！使用方法上与state【相同】： store.state.xxx (注意是state,不是store.localState)
