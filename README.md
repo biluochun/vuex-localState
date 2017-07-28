@@ -25,45 +25,47 @@ import * as Vuex from 'vuex';
 import * as VuexLocalState from 'vuex-local-state';
 import subModule from './subModule.js';
 
-const store = {
+const storeOptions = {
     // https://vuex.vuejs.org/zh-cn/state.html
     state: {},
 
-    // vuex-local-state 注入 vuex 后新增功能。与 https://vuex.vuejs.org/zh-cn/state.html 相比，只是新增部分功能：
-    // 1、存储于 localStorage 内，刷新后不会丢失
-    // 2、初始值为函数时: 函数参数为本地数据，返回值将被存储。比如每次刷新计数器: function (count) { return (count || 0) + 1; }
-    // 3、注意事项！！使用方法上与state【相同】： store.state.xxx (注意是state,不是store.localState)
+    // vuex-local-state inject
+    // 1、 data in vuex and localStorage,
+    // 2、 can be a Function: function (count) { return (count || 0) + 1; }
+    // 3、 use: store.state.xxx
+    // 4、 [Not] use: store.localState.xxx
     localState: {
         count: oldValue => (oldValue || 0) + 1,
     },
+
     actions: {},
     getters: {},
     mutations: {},
     modules: { subModule },
 };
 
-new VuexLocalState(store);
+new VuexLocalState(storeOptions);
 
 Vue.use(Vuex);
-export new Vuex.Store(store);
+export new Vuex.Store(storeOptions);
 ```
 
 ```js
 // subModule.js
-// vuex module 示例
+// vuex module
 export default {
     // https://vuex.vuejs.org/zh-cn/state.html
     state: {},
 
-    // vuex-local-state 注入 vuex 后新增功能。与 https://vuex.vuejs.org/zh-cn/state.html 相比，只是新增部分功能：
-    // 1、存储于 localStorage 内，刷新后不会丢失
-    // 2、初始值为函数时: 函数参数为本地数据，返回值将被存储。比如每次刷新计数器: function (count) { return (count || 0) + 1; }
-    // 3、注意事项！！使用方法上与state【相同】： store.state.xxx (注意是state,不是store.localState)
+    // vuex-local-state inject
+    // 1、 data in vuex and localStorage,
+    // 2、 can be a Function: function (count) { return (count || 0) + 1; }
+    // 3、 use: store.state.xxx
+    // 4、 [Not] use: store.localState.xxx
     localState: {
-        aaaaa: 1, // 若 localStorage.aaaaa 内值为 undefined， 则 state.aaaaa === 1
-        bbbbb: null, // 若 localStorage.bbbbb 内值为 undefined， 则 state.bbbbb === null
-        ccccc: oldValue => (oldValue || 0) + 1, // 每次刷新 ccccc 的值递增
-        // 超时重置
+        aaaaa: 1,
+        bbbbb: null,
+        ccccc: oldValue => (oldValue || 0) + 1,
         ddddd: (oldValue = {}) => {
             if (Date.now() - (oldValue.saveTime || 0) < 60 * 1000) return oldValue;
             return {};
@@ -71,13 +73,8 @@ export default {
     },
 
     getters: {},
-
     actions: {},
-
     mutations: {},
 };
 
 ```
-
-## Other
-* state 储存到 localStorage 目前没有做按需存储。
