@@ -1,6 +1,6 @@
 {
   "name": "vuex-local-state",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "vuex plugin",
   "main": "index.js",
   "scripts": {
