@@ -1,5 +1,5 @@
 {
-  "name": "vuex-localState",
+  "name": "vuex-local-state",
   "version": "1.0.0",
   "description": "vuex plugin",
   "main": "index.js",
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/biluochun/vuex-localState.git"
   },
   "keywords": [
-    "vuex-localState",
+    "vuex-local-state",
     "vuex",
     "localStorage"
   ],

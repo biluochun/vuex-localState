@@ -2,10 +2,33 @@
 const listenList = [];
 const storage = window.localStorage;
 
+const ROOT_NAME = '__state';
+
 function clear (listen) {
     db.remove(`${db.namespace}-${listen.moduleName}-${listen.key}`);
 }
 
+function watchModule (store, listen) {
+    store.watch(function (state) {
+        if (listen.moduleName === ROOT_NAME) return state[listen.key];
+        return state[listen.moduleName][listen.key];
+    }, function (val) {
+        db.set(`${db.namespace}-${listen.moduleName}-${listen.key}`, val);
+    }, {
+        deep: true,
+    });
+}
+
+// 对 store 进行初始过滤，赋值过滤。
+function filter (name, module) {
+    // 对，具有 localState 的值 进行处理
+    if (!module.localState) return;
+    const localState = module.localState;
+    module.state = module.state || {};
+    for (const key in localState) {
+        dealModule(name, module.state, localState[key], key);
+    }
+}
 function dealModule (moduleName, state, initValue, key) {
     const localValue = db.get(`${db.namespace}-${moduleName}-${key}`);
     if (typeof initValue === 'function') {
@@ -22,30 +45,6 @@ function dealModule (moduleName, state, initValue, key) {
     listenList.push({ moduleName, key, initValue });
 }
 
-function watchModule (store, listen) {
-    store.watch(function (state) {
-        if (listen.moduleName === 'state') return state[listen.key];
-        return state[listen.moduleName][listen.key];
-    }, function (val) {
-        db.set(`${db.namespace}-${listen.moduleName}-${listen.key}`, val);
-    }, {
-        deep: true,
-    });
-}
-
-// 对 store 进行初始过滤，赋值过滤。
-function filter (module) {
-    // 对，具有 localState 的值 进行处理
-    if (!module.localState) return;
-    const localState = module.localState;
-    // 获取 localState 的值
-    for (const key in localState) {
-        // 初始赋值
-        const initValue = localState[key];
-        dealModule(module.name || 'state', module.state, initValue, key);
-    }
-}
-
 function plugin (store) {
     listenList.forEach(listen => watchModule(store, listen));
 }
@@ -54,9 +53,9 @@ const db = {
     injection (storeOptions, conf) {
         db.namespace = conf.namespace || '_vued';
 
-        filter(storeOptions);
+        filter(ROOT_NAME, storeOptions);
         for (const i in storeOptions.modules) {
-            filter(storeOptions.modules[i]);
+            filter(i, storeOptions.modules[i]);
         }
         storeOptions.plugins = storeOptions.plugins || [];
         storeOptions.plugins.push(plugin);

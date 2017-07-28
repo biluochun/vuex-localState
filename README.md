@@ -1,6 +1,10 @@
 # vuex-localState
 inject localStorage to vuex
 
+## 注意事项
+------
+* state 储存到 localStorage 目前没有做按需的。
+
 ## 使用方法
 ```javascript
 
