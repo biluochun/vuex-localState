@@ -6,17 +6,26 @@ inject localStorage to vuex
 
 ## 注意事项
 ------
-* state 储存到 localStorage 目前没有做按需的。
+* state 储存到 localStorage 目前没有做按需存储。
+
+## API
+
+    new VuexLocalState(storeOptions, conf);
+    conf 默认 {
+        namespace: '_vued',
+        storage: window.localStorage,
+        key: 'localState',
+    }
+
 
 ## [demo](https://biluochun.github.io/vuex-localState/test/index.html)
-
 
 ## 使用方法
 ```javascript
 
 import * as Vue from 'vue';
 import * as Vuex from 'vuex';
-import * as vuexLocalState from 'vuex-local-state';
+import * as VuexLocalState from 'vuex-local-state';
 import subModule from './subModule.js';
 
 const store = {
@@ -35,8 +44,8 @@ const store = {
     mutations: {},
     modules: { subModule },
 };
-// 本地存储 对 store 进行处理，注入
-vuexLocalState.injection(store);
+
+new VuexLocalState(store);
 
 Vue.use(Vuex);
 export new Vuex.Store(store);
