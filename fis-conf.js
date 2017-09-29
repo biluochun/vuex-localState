@@ -11,10 +11,11 @@ fis.match('*.es', {
     deploy: fis.plugin('local-deliver', {
         to: './',
     }),
-    optimizer: fis.plugin('uglify-js', {
-        compress: {
-            'drop_console': true, // 删除console.*
-            'drop_debugger': true, // 删除debugger
-        },
-    }),
+    // 生成文件不压缩，应该让使用者自行压缩。
+    // optimizer: fis.plugin('uglify-js', {
+    //     compress: {
+    //         'drop_console': true, // 删除console.*
+    //         'drop_debugger': true, // 删除debugger
+    //     },
+    // }),
 });
